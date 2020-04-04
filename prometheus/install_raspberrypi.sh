@@ -5,6 +5,8 @@ ARCH=${ARCH:-arm64}
 VERSION=${VERSION:-2.17.1}
 TARGET=prometheus-${VERSION}.linux-${ARCH}
 
+
+
 install_binary(){
     echo "Installing the prometheus service."
 
@@ -63,5 +65,14 @@ EOF
     sudo systemctl enable prometheus
 }
 
+bind_to_socket(){
+    echo "Please enter socket for the node_exporter in form ip:port. I.e.: 192.168.0.100:9100"
+    read -p "ip:port = " SOCKET
+    echo "Configuring Prometheus for socket $SOCKET".
+
+    sed -i "s/\(.*\)localhost:.*'\(.*\)/\1$SOCKET'\2/" /etc/prometheus/prometheus.yml
+}
+
 install_binary
 install_service
+bind_to_socket
