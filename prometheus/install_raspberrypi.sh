@@ -66,7 +66,7 @@ EOF
 }
 
 bind_to_socket(){
-    echo "Please enter socket for the node_exporter in form ip:port. I.e.: 192.168.0.100:9100"
+    echo "Please enter socket for the node_exporter in form ip:port. I.e.: 192.168.0.100:9100."
     read -p "ip:port = " SOCKET
     echo "Configuring Prometheus for socket $SOCKET".
 
