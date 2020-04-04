@@ -1,0 +1,20 @@
+#! /bin/bash
+# Code adapted from https://www.digitalocean.com/community/tutorials/how-to-install-prometheus-on-ubuntu-16-04
+
+ARCH=${ARCH:-arm64}
+VERSION=${VERSION:-0.18.1}
+TARGET=node_exporter-${VERSION}.linux-${ARCH}
+
+sudo useradd --no-create-home --shell /bin/false node_exporter
+
+pushd /tmp
+
+curl -LO https://github.com/prometheus/node_exporter/releases/download/v${VERSION}/${TARGET}.tar.gz
+tar -xvf ${TARGET}.tar.gz
+
+sudo cp ${TARGET}/node_exporter /usr/local/bin/
+sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+
+rm -rf ${TARGET}.tar.gz ${TARGET}
+
+
