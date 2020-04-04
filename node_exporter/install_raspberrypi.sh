@@ -6,7 +6,7 @@ VERSION=${VERSION:-0.18.1}
 TARGET=node_exporter-${VERSION}.linux-${ARCH}
 
 install_binary(){
-
+    echo "Installing the node_exporter binary."
     sudo useradd --no-create-home --shell /bin/false node_exporter
 
     pushd /tmp
@@ -22,6 +22,7 @@ install_binary(){
 }
 
 install_service() {
+    echo "Installing the node_exporter service."
     cat <<EOF >/etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter

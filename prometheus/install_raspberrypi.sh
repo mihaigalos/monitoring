@@ -6,6 +6,8 @@ VERSION=${VERSION:-2.17.1}
 TARGET=prometheus-${VERSION}.linux-${ARCH}
 
 install_binary(){
+    echo "Installing the prometheus service."
+
     sudo useradd --no-create-home --shell /bin/false prometheus
 
     sudo mkdir /etc/prometheus
@@ -32,6 +34,7 @@ install_binary(){
 }
 
 install service() {
+    echo "Installing the prometheus service."
     cat <<EOF > /etc/systemd/system/prometheus.service
 [Unit]
 Description=Prometheus
@@ -62,4 +65,3 @@ EOF
 
 install_binary
 install_service
-
