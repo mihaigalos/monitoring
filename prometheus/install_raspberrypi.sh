@@ -21,6 +21,8 @@ sudo chown prometheus:prometheus /usr/local/bin/prometheus
 
 sudo cp -r prometheus-${VERSION}.linux-${ARCH}/consoles /etc/prometheus
 sudo chown -R prometheus:prometheus /etc/prometheus/consoles
+sudo cp -r prometheus-${VERSION}.linux-${ARCH}/console_libraries /etc/prometheus
+sudo chown -R prometheus:prometheus /etc/prometheus/console_libraries
 
 rm -rf prometheus-${VERSION}.linux-${ARCH}.tar.gz prometheus-${VERSION}.linux-${ARCH}
 
