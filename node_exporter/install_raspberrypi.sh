@@ -5,16 +5,47 @@ ARCH=${ARCH:-arm64}
 VERSION=${VERSION:-0.18.1}
 TARGET=node_exporter-${VERSION}.linux-${ARCH}
 
-sudo useradd --no-create-home --shell /bin/false node_exporter
+install_binary(){
 
-pushd /tmp
+    sudo useradd --no-create-home --shell /bin/false node_exporter
 
-curl -LO https://github.com/prometheus/node_exporter/releases/download/v${VERSION}/${TARGET}.tar.gz
-tar -xvf ${TARGET}.tar.gz
+    pushd /tmp
 
-sudo cp ${TARGET}/node_exporter /usr/local/bin/
-sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
+    curl -LO https://github.com/prometheus/node_exporter/releases/download/v${VERSION}/${TARGET}.tar.gz
+    tar -xvf ${TARGET}.tar.gz
 
-rm -rf ${TARGET}.tar.gz ${TARGET}
+    sudo cp ${TARGET}/node_exporter /usr/local/bin/
+    sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
 
+    rm -rf ${TARGET}.tar.gz ${TARGET}
+    popd
+}
 
+install_service() {
+    cat <<EOF >/etc/systemd/system/node_exporter.service
+
+    [Unit]
+    Description=Node Exporter
+    Wants=network-online.target
+    After=network-online.target
+
+    [Service]
+    User=node_exporter
+    Group=node_exporter
+    Type=simple
+    ExecStart=/usr/local/bin/node_exporter
+
+    [Install]
+    WantedBy=multi-user.target
+
+EOF
+
+    sudo systemctl daemon-reload
+    sudo systemctl start node_exporter
+    sudo systemctl status node_exporter
+
+    sudo systemctl enable node_exporter
+}
+
+install_binary
+install_service
