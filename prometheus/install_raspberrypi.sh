@@ -50,7 +50,14 @@ ExecStart=/usr/local/bin/prometheus \
 
 [Install]
 WantedBy=multi-user.target
+
 EOF
+
+    sudo systemctl daemon-reload
+    sudo systemctl start prometheus
+    sudo systemctl status prometheus
+
+    sudo systemctl enable prometheus
 }
 
 install_binary
