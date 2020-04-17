@@ -23,7 +23,7 @@ install_binary(){
 
 install_service() {
     echo "Installing the node_exporter service."
-    cat <<EOF >/etc/systemd/system/node_exporter.service
+    sudo cat <<EOF >/etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
 Wants=network-online.target

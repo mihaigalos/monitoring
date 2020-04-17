@@ -37,7 +37,7 @@ install_binary(){
 
 install service() {
     echo "Installing the prometheus service."
-    cat <<EOF > /etc/systemd/system/prometheus.service
+    sudo cat <<EOF > /etc/systemd/system/prometheus.service
 [Unit]
 Description=Prometheus
 Wants=network-online.target
