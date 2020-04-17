@@ -37,7 +37,7 @@ install_binary(){
 
 install service() {
     echo "Installing the prometheus service."
-    sudo cat <<EOF > /etc/systemd/system/prometheus.service
+    sudo bash -c 'cat <<EOF > /etc/systemd/system/prometheus.service
 [Unit]
 Description=Prometheus
 Wants=network-online.target
@@ -56,7 +56,7 @@ ExecStart=/usr/local/bin/prometheus \
 [Install]
 WantedBy=multi-user.target
 
-EOF
+EOF'
 
     sudo systemctl daemon-reload
     sudo systemctl start prometheus

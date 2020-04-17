@@ -23,7 +23,7 @@ install_binary(){
 
 install_service() {
     echo "Installing the node_exporter service."
-    sudo cat <<EOF >/etc/systemd/system/node_exporter.service
+    sudo bash -c 'cat <<EOF >/etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
 Wants=network-online.target
@@ -38,7 +38,7 @@ ExecStart=/usr/local/bin/node_exporter
 [Install]
 WantedBy=multi-user.target
 
-EOF
+EOF'
 
     sudo systemctl daemon-reload
     sudo systemctl start node_exporter
