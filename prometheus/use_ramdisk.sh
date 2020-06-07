@@ -18,3 +18,6 @@ sudo systemctl restart prometheus
 
 # make it permanent after reboot
 grep /mnt/prometheus_logs /etc/mtab | sudo tee -a /etc/fstab
+
+echo "TODO: Symlink from data to ramdisk on each reboot"
+
